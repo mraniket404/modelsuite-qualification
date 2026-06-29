@@ -40,6 +40,12 @@ const getTaskById = async (req, res) => {
 const createTask = async (req, res) => {
   const { title, description, status, assignedTo, dueDate } = req.body;
 
+  if (dueDate && new Date(dueDate) < new Date()) {
+    return res
+      .status(400)
+      .json({ message: "Due date must be in the future." });
+  }
+
   try {
     const task = await Task.create({
       title,
@@ -61,6 +67,13 @@ const createTask = async (req, res) => {
 // @access Admin
 const updateTask = async (req, res) => {
   try {
+    const { dueDate } = req.body;
+
+    if (dueDate && new Date(dueDate) < new Date()) {
+      return res
+        .status(400)
+        .json({ message: 'Due date must be in the future.' });
+    }
     const task = await Task.findById(req.params.id);
     if (!task) return res.status(404).json({ message: 'Task not found' });
     // including internal fields like createdBy or __v
