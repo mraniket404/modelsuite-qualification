@@ -44,6 +44,10 @@ const STATUS_CLASS = {
 const TasksTable = ({ tasks, onEdit, onRefresh }) => {
 
   const handleDelete = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this task?')) {
+      return;
+    }
+    
     try {
       await deleteTask(id);
       onRefresh();

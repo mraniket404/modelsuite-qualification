@@ -10,6 +10,13 @@ const REVIEW_STATUS_CLASS = {
 const SubmissionReviewModal = ({ submission, onClose, onReviewed }) => {
 
   const handleReview = async (status) => {
+    if (
+      status === 'Rejected' &&
+      !window.confirm('Are you sure you want to reject this submission?')
+    ) {
+      return;
+    }
+    
     try {
       await reviewSubmission(submission._id, status);
       onReviewed();
