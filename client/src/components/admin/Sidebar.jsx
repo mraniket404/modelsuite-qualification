@@ -70,7 +70,17 @@ const Sidebar = () => {
         </p>
 
         {navItems.map(({ label, path, Icon }) => {
-          const isActive = location.pathname === path;
+          const isActive =
+            location.pathname === path ||
+            (path === "/admin/dashboard" &&
+              location.pathname.startsWith("/admin/dashboard")) ||
+            (path === "/admin/tasks" &&
+              location.pathname.startsWith("/admin/tasks")) ||
+            (path === "/admin/submissions" &&
+              location.pathname.startsWith("/admin/submissions")) ||
+            (path === "/admin/talents" &&
+              location.pathname.startsWith("/admin/talents"));
+
           return (
             <button key={path}
               onClick={() => navigate(path)}
