@@ -82,6 +82,17 @@ const getAllSubmissions = async (req, res) => {
 // @access Admin
 const reviewSubmission = async (req, res) => {
   const { reviewStatus } = req.body;
+  const allowedStatuses = [
+    'Approved',
+    'Rejected',
+    'Request Revision',
+  ];
+
+  if (!allowedStatuses.includes(reviewStatus)) {
+    return res.status(400).json({
+      message: 'Invalid review status.',
+    });
+  }
 
   try {
     // — any string is accepted and stored

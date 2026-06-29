@@ -7,6 +7,7 @@ const REVIEW_STATUS_CLASS = {
   Pending:  'status-badge-Submitted',
   Approved: 'status-badge-Approved',
   Rejected: 'status-badge-Rejected',
+  'Request Revision': 'status-badge-Submitted',
 };
 
 const SubmissionsPage = () => {
